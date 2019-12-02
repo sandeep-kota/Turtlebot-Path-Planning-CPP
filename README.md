@@ -2,8 +2,8 @@
 </h1>
 ENPM808X-Final Project
 
-[![Build Status](https://travis-ci.org/sandeep-kota/TerpBotics-Enigma.svg?branch=week_1)](https://travis-ci.org/sandeep-kota/TerpBotics-Enigma)
-[![Coverage Status](https://coveralls.io/repos/github/sandeep-kota/TerpBotics-Enigma/badge.svg?branch=week_1)](https://coveralls.io/github/sandeep-kota/TerpBotics-Enigma?branch=week_1)
+[![Build Status](https://travis-ci.org/sandeep-kota/TerpBotics-Enigma.svg?branch=week_1)](https://travis-ci.org/sandeep-kota/terpbotics_enigma)
+[![Coverage Status](https://coveralls.io/repos/github/sandeep-kota/TerpBotics-Enigma/badge.svg?branch=week_1)](https://coveralls.io/github/sandeep-kota/terpbotics_enigma?branch=week_1)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 ---
 
