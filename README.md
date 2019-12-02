@@ -2,8 +2,8 @@
 </h1>
 ENPM808X-Final Project
 
-[![Build Status](https://travis-ci.org/sandeep-kota/TerpBotics-Enigma.svg?branch=week_1)](https://travis-ci.org/sandeep-kota/TerpBotics-Enigma)
-[![Coverage Status](https://coveralls.io/repos/github/sandeep-kota/TerpBotics-Enigma/badge.svg?branch=week_1)](https://coveralls.io/github/sandeep-kota/TerpBotics-Enigma?branch=week_1)
+[![Build Status](https://travis-ci.org/sandeep-kota/TerpBotics-Enigma.svg?branch=week_1)](https://travis-ci.org/sandeep-kota/terpbotics_enigma)
+[![Coverage Status](https://coveralls.io/repos/github/sandeep-kota/TerpBotics-Enigma/badge.svg?branch=week_1)](https://coveralls.io/github/sandeep-kota/terpbotics_enigma?branch=week_1)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 ---
 
@@ -34,6 +34,21 @@ The link for the sprint review document can be found here - [link](https://docs.
 ## Project Overview
 
 This project is a simulation of a material handling robot in a gazebo environment of a warehouse.
+
+## Run commands
+
+Launch the Gazebo world, gmapping node, and the walker node:
+```
+roslaunch terpbotics_enigma walker.launch
+```
+
+Command to save the generated map:
+```
+rosrun map_server map_saver -f /map/warehouse
+```
+This command saves two files named `warehouse.yaml` and `warehouse.pgm`
+
+This map can later be used by other modules / nodes for further applications.                                  
 
 ## License
 
