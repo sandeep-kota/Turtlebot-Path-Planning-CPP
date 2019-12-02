@@ -35,6 +35,19 @@ The link for the sprint review document can be found here - [link](https://docs.
 
 This project is a simulation of a material handling robot in a gazebo environment of a warehouse.
 
+Launch the Gazebo world, gmapping node, and the walker node:
+```
+roslaunch terpbotics_enigma walker.launch
+```
+
+Command to save the generated map:
+```
+rosrun map_server map_saver -f /map/warehouse
+```
+This command saves two files named `warehouse.yaml` and `warehouse.pgm`
+
+This map can later be used by other modules / nodes for further applications.                                  
+
 ## License
 
 This software is released under the [BSD 3-Clause license](./LICENSE). 
