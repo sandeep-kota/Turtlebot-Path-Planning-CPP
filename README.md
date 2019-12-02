@@ -35,6 +35,8 @@ The link for the sprint review document can be found here - [link](https://docs.
 
 This project is a simulation of a material handling robot in a gazebo environment of a warehouse.
 
+## Run commands
+
 Launch the Gazebo world, gmapping node, and the walker node:
 ```
 roslaunch terpbotics_enigma walker.launch
