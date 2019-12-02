@@ -1,0 +1,9 @@
+<launch>
+  <!-- Run the Gazebo Simulation World -->
+
+  <include file="$(find terpbotics_enigma)/launch/turtlebot_world_orig.launch">
+  <arg name="world_file" value="$(find terpbotics_enigma)/world/warehouse.world"/> 
+
+  </include>
+
+</launch>
