@@ -51,25 +51,24 @@ The following are the major tasks that were done for performming this simulation
 1) <b> Modeling the Gazebo World </b>:
 	A gazebo environment of a simulated warehouse world is made with a total of six pick-up and drop-off stations.The image of the gazebo warehouse world is shown below.
 		<p align = "center"> 
-			<img src ="./data/readme_images/world.png" />
+			<img src ="./data/readme_images/world.png" >
 		</p>
 	The small red boxes placed in the middle row of each bookshelves are cosidered to be the objects to be picked up and placed in the different stations. An image of the red box placed in its shelf as seen from the turtlebot is given below.
 		<p align = "center"> 
-			<img src ="./data/readme_images/red_box.png" />
+			<img src ="./data/readme_images/red_box.png" >
 		</p>
 
 2) <b> Mapping the Gazebo World </b>:
-	After the gazebo world has been modeled, it is required to generate a map of the gazebo environment for running localization and the material handling nodes. Below is the screenshot of the mapping being performed by the robot. The robot exploration algorithm is given by the
-	enigma walker class, where it avoids the obstacles in the environment and runs gmapping package on the gazebo world to generate the occupancy grid of the gazebo world.
-			<p align ="center">
-				<img src=".data/readme_images/Map_server.png" />
-			</p>
+	After the gazebo world has been modeled, it is required to generate a map of the gazebo environment for running localization and the material handling nodes. Below is the screenshot of the mapping being performed by the robot. The robot exploration algorithm is given by the enigma walker class, where it avoids the obstacles in the environment and runs gmapping package on the gazebo world to generate the occupancy grid of the gazebo world.
+		<p align ="center">
+			<img src=".data/readme_images/Map_server.png" >
+		</p>
 
 3) <b> Take inputs from the user and perform navigation: </b>
 	The navigation code is then run taking the user inputs on the pick location and the place location of the object. It finds the optimum path between pick location and place location and moves the robot along the path.
-			<p align ="center">
-				<img src=".data/readme_images/localize.png" />
-			</p>
+		<p align ="center">
+			<img src=".data/readme_images/localize.png" >
+		</p>
 
 
 ## Dependencies 
@@ -104,7 +103,14 @@ source devel/setup.bash
 ```
 roslaunch terpbotics_enigma walker.launch
  ```
+5) Run the following commands to perform navigation using amcl.
+```
+# Terminal one
+roslaunch turtlebot_navigation amcl_demo.launch
 
+# Terminal two
+rosrun move_base move_base
+```
 
 ## License
 
