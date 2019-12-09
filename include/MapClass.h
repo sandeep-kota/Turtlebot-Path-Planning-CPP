@@ -23,68 +23,64 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * @file    enigmaWalker.cpp
+ * @file    MapClass.cpp
  * @author  Sandeep Kota and Satyarth Praveen
  * @version 1.0
- * @brief   This file implements the enigmaWalker.
+ * @section DESCRIPTION
+ * C++ Program regarding the properties and functions of the MapClass.
  */
 
-#ifndef ENIGMAWALKER_H
-#define ENIGMAWALKER_H
+
+#ifndef MAPCLASS_H
+#define MAPCLASS_H
 
 #include <iostream>
 #include <ros/ros.h>
-#include <geometry_msgs/Twist.h>
-#include <sensor_msgs/LaserScan.h>
-#include <cmath>
 
 /**
- * @brief      This class describes a enigmaWalker.
+ * @brief      This class describes a map class.
  */
-class enigmaWalker {
+class MapClass {
 private:
-  static const int LEFT = 0;
-  static const int RIGHT = 1;
-  static const int STRAIGHT = 2;
-  static constexpr float CLOSEST_DISTANCE = 0.6; // distance in meters.
+  gazebo::ModelStates map_models;
 
-  ros::NodeHandle node_handle;
-  ros::Subscriber laser_subscriber;
-  ros::Publisher nav_publisher;
+  ros::Subscriber map_subscriber;
+  ros::Subscriber model_subscriber;
+
+  nav_msgs::OccupancyGrid saved_map;
 
 public:
-  geometry_msgs::Twist out_msg;
-
   /**
    * @brief      Constructs a new instance.
    * 
-   * @param none
-   * @return none
+   * @param      none
+   * @return     none
    */
-  enigmaWalker();
+  MapClass();
+  
   /**
    * @brief      Destroys the object.
    * 
-   * @param none
-   * @return none
-   */
-  ~enigmaWalker();
-
-  /**
-   * @brief      rotates the robot in-place.
-   *
-   * @param      direction  The direction in which the robot is to be rotated.
+   * @param      none
    * @return     none
    */
-  void moveBot(int direction);
+  ~MapClass();
 
   /**
-   * @brief      processes the scene to decide where the to keep moving forward or take a turn.
+   * @brief      Callback function to save a map.
    *
-   * @param      msg   The subscribed message
+   * @param      map_msg  The map message
    * @return     none
    */
-  void scanCallback(const sensor_msgs::LaserScanConstPtr &msg);
+  void saveMapCallback(nav_msgs::OccupancyGrid &map_msg);
+
+  /**
+   * @brief      Gets the models callback.
+   *
+   * @param      models_msg  The models message
+   * @return     none
+   */
+  void getModelsCallback(gazebo::ModelStatesConstPtr &models_msg);
 };
 
 #endif

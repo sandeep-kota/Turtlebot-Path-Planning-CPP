@@ -23,68 +23,39 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * @file    enigmaWalker.cpp
+ * @file    MapClass.cpp
  * @author  Sandeep Kota and Satyarth Praveen
  * @version 1.0
- * @brief   This file implements the enigmaWalker.
+ * @brief Publisher node
+ * @section DESCRIPTION
+ * C++ Program regarding the properties and functions of the MapClass.
  */
 
-#ifndef ENIGMAWALKER_H
-#define ENIGMAWALKER_H
 
-#include <iostream>
-#include <ros/ros.h>
-#include <geometry_msgs/Twist.h>
-#include <sensor_msgs/LaserScan.h>
-#include <cmath>
+#include <MapClass.h>
 
-/**
- * @brief      This class describes a enigmaWalker.
- */
-class enigmaWalker {
-private:
-  static const int LEFT = 0;
-  static const int RIGHT = 1;
-  static const int STRAIGHT = 2;
-  static constexpr float CLOSEST_DISTANCE = 0.6; // distance in meters.
 
-  ros::NodeHandle node_handle;
-  ros::Subscriber laser_subscriber;
-  ros::Publisher nav_publisher;
+MapClass::MapClass() {
 
-public:
-  geometry_msgs::Twist out_msg;
+	ros::NodeHandler nh;
 
-  /**
-   * @brief      Constructs a new instance.
-   * 
-   * @param none
-   * @return none
-   */
-  enigmaWalker();
-  /**
-   * @brief      Destroys the object.
-   * 
-   * @param none
-   * @return none
-   */
-  ~enigmaWalker();
+	/// Subscribers
+	map_subscriber = nh.subscribe<nav_msgs::OccupancyGrid>("/map", 5, &MapClass::saveMapCallback, this);
+	model_subscriber = nh.subscribe<gazebo::ModelStates>("/gazebo/model_states", 10, &MapClass::getModelsCallback, this);
+}
 
-  /**
-   * @brief      rotates the robot in-place.
-   *
-   * @param      direction  The direction in which the robot is to be rotated.
-   * @return     none
-   */
-  void moveBot(int direction);
+MapClass::~MapClass() {}
 
-  /**
-   * @brief      processes the scene to decide where the to keep moving forward or take a turn.
-   *
-   * @param      msg   The subscribed message
-   * @return     none
-   */
-  void scanCallback(const sensor_msgs::LaserScanConstPtr &msg);
-};
 
-#endif
+void MapClass::saveMapCallback(nav_msgs::OccupancyGrid &map_msg) {
+	saved_map.header = map_msg->header;
+	saved_map.info = map_msg->info;
+	saved_map.data = map_msg->data;
+}
+
+
+void MapClass::getModelsCallback(gazebo::ModelStatesConstPtr &models_msg) {
+	map_models.name = models_msg->name;
+	map_models.pose = models_msg->pose;
+	map_models.twist = models_msg->twist;
+}

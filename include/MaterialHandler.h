@@ -23,68 +23,80 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * @file    enigmaWalker.cpp
+ * @file    MaterialHandler.cpp
  * @author  Sandeep Kota and Satyarth Praveen
  * @version 1.0
- * @brief   This file implements the enigmaWalker.
+ * @section DESCRIPTION
+ * C++ Program regarding the properties and functions of the Material Handling system.
  */
 
-#ifndef ENIGMAWALKER_H
-#define ENIGMAWALKER_H
+#ifndef MATERIALHANDLER_H
+#define MATERIALHANDLER_H
 
 #include <iostream>
 #include <ros/ros.h>
-#include <geometry_msgs/Twist.h>
-#include <sensor_msgs/LaserScan.h>
-#include <cmath>
+#include <sstream>
+#include <MapClass.h>
+#include <Robot.h>
+#include <geometry_msgs/Pose.h>
+
 
 /**
- * @brief      This class describes a enigmaWalker.
+ * @brief      MaterialHandler Class consists of MaterialHandler properties and member functions..
  */
-class enigmaWalker {
-private:
-  static const int LEFT = 0;
-  static const int RIGHT = 1;
-  static const int STRAIGHT = 2;
-  static constexpr float CLOSEST_DISTANCE = 0.6; // distance in meters.
+class MaterialHandler : public MapClass{
+private: 
+  ros::NodeHandle nh;
+  std::string pick_model_name;
+  std::string place_model_name;
 
-  ros::NodeHandle node_handle;
-  ros::Subscriber laser_subscriber;
-  ros::Publisher nav_publisher;
+  geometry_msgs::Pose goal_pose;
+
+  Robot robot_obj;
 
 public:
-  geometry_msgs::Twist out_msg;
 
   /**
    * @brief      Constructs a new instance.
    * 
-   * @param none
-   * @return none
+   * @param      none
+   * @return     none
    */
-  enigmaWalker();
+  MaterialHandler();
+  ~MaterialHandler();
+
   /**
-   * @brief      Destroys the object.
+   * @brief      Gets the model to be deleted.
+   *
+   * @param      none
+   * @return     The model name.
+   */
+  std::string getDeleteModel();
+
+  /**
+   * @brief      Performs the task of pick and place.
    * 
-   * @param none
-   * @return none
+   * @param      none
+   * @return     The model name.
    */
-  ~enigmaWalker();
+  void performTask();
 
   /**
-   * @brief      rotates the robot in-place.
-   *
-   * @param      direction  The direction in which the robot is to be rotated.
+   * @brief      Picks the object 
+   * 
+   * @param      none
    * @return     none
    */
-  void moveBot(int direction);
+  void pick();
 
   /**
-   * @brief      processes the scene to decide where the to keep moving forward or take a turn.
-   *
-   * @param      msg   The subscribed message
+   * @brief      Places the object at the destination
+   * 
+   * @param      none
    * @return     none
    */
-  void scanCallback(const sensor_msgs::LaserScanConstPtr &msg);
+  void place();
+
 };
 
 #endif

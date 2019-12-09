@@ -2,8 +2,8 @@
 </h1>
 ENPM808X-Final Project
 
-[![Build Status](https://travis-ci.org/sandeep-kota/TerpBotics-Enigma.svg?branch=week_1)](https://travis-ci.org/sandeep-kota/terpbotics_enigma)
-[![Coverage Status](https://coveralls.io/repos/github/sandeep-kota/TerpBotics-Enigma/badge.svg?branch=week_1)](https://coveralls.io/github/sandeep-kota/terpbotics_enigma?branch=week_1)
+[![Build Status](https://travis-ci.org/sandeep-kota/terpBotics_enigma.svg?branch=week_3)](https://travis-ci.org/sandeep-kota/terpbotics_enigma)
+[![Coverage Status](https://coveralls.io/repos/github/sandeep-kota/terpbotics-enigma/badge.svg?branch=week_3)](https://coveralls.io/github/sandeep-kota/terpbotics_enigma?branch=week_3)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 ---
 
@@ -31,24 +31,86 @@ The link for the product backlog, time log, error log and release log can be fou
 
 The link for the sprint review document can be found here - [link](https://docs.google.com/document/d/1372jK7DAAn1wwATMmXONC1Ds_ZeT41WqeLHxTDLHxzQ/edit?usp=sharing)
 
+The link for the presentation for the final project presentation is - [link](https://docs.google.com/presentation/d/1AcX80SA0h2jXYvXMIJos0L63M6Ya1XcCkGXFJuR2B6w/edit?usp=sharing) 
+
+Thi link for the video of the simulation is - [Link](https://www.youtube.com/watch?v=weTAFZW-aLw&feature=youtu.be)
+
+
 ## Project Overview
 
-This project is a simulation of a material handling robot in a gazebo environment of a warehouse.
+This project is a simulation of a material handling robot in a gazebo environment of a warehouse. A simulated warehouse environment is designed using the gazebo environment builder, where six bookshelves simulate the different material handling stations of a warehouse and with small red boxes as the objects to be manipulated accross the different stations. 
 
-## Run commands
+## Application
 
-Launch the Gazebo world, gmapping node, and the walker node:
+Warehouse management is an important task in any large scale industry and an efficient automation technique for the material handling tasks can produce immense profits in the operations in companies. This simulation module can be used for analyzing the efficiency of the material handling software and simulate the operations on a given environemnt.    
+
+
+## Project Output Pipeline
+
+The following are the major tasks that were done for performming this simulation. 
+1) <b> Modeling the Gazebo World </b>:
+	A gazebo environment of a simulated warehouse world is made with a total of six pick-up and drop-off stations.The image of the gazebo warehouse world is shown below.
+		<p align = "center"> 
+			![Alt text](./data/readme_images/world.png?raw=true "Server")
+		</p>
+	The small red boxes placed in the middle row of each bookshelves are cosidered to be the objects to be picked up and placed in the different stations. An image of the red box placed in its shelf as seen from the turtlebot is given below.
+		<p align = "center"> 
+			![Alt text](./data/readme_images/red_box.png?raw=true "red_box")
+		</p>
+
+2) <b> Mapping the Gazebo World </b>:
+	After the gazebo world has been modeled, it is required to generate a map of the gazebo environment for running localization and the material handling nodes. Below is the screenshot of the mapping being performed by the robot. The robot exploration algorithm is given by the enigma walker class, where it avoids the obstacles in the environment and runs gmapping package on the gazebo world to generate the occupancy grid of the gazebo world.
+		<p align ="center">
+			![Alt text](./data/readme_images/Map_server.png?raw=true "Map_Server")
+		</p>
+
+3) <b> Take inputs from the user and perform navigation: </b>
+	The navigation code is then run taking the user inputs on the pick location and the place location of the object. It finds the optimum path between pick location and place location and moves the robot along the path.
+		<p align ="center">
+			![Alt text](./data/readme_images/localize.png?raw=true "localize")
+		</p>
+
+
+## Dependencies 
+
+ - Ubuntu 16.04
+ - ROS Kinetic
+ - GoogleTest
+ - Turtlebot
+ - Gazebo 6+
+ - RViz
+
+
+
+## Installation Instructions
+
+1) To install ros kinetic distro, follow the link in the official website - [Link](http://wiki.ros.org/kinetic/Installation)
+
+2) Install gazebo and rviz for simulation and visualization. Follow the tutorial given in the official link. [Gazebo Installation](http://gazebosim.org/tutorials?tut=install_ubuntu&cat=install)
+
+3) To build this simulation module into your system, run the following commands.
+
+```
+mkdir ~/catkin_ws
+cd ~/catkin_ws
+mkdir ~/catkin_ws/src
+catkin_make
+git clone https://github.com/sandeep-kota/terpbotics_enigma.git
+cd ~/catkin_ws
+source devel/setup.bash
+```
+4) To launch the program of the robot 
 ```
 roslaunch terpbotics_enigma walker.launch
+ ```
+5) Run the following commands to perform navigation using amcl.
 ```
+# Terminal one
+roslaunch turtlebot_navigation amcl_demo.launch
 
-Command to save the generated map:
+# Terminal two
+rosrun move_base move_base
 ```
-rosrun map_server map_saver -f /map/warehouse
-```
-This command saves two files named `warehouse.yaml` and `warehouse.pgm`
-
-This map can later be used by other modules / nodes for further applications.                                  
 
 ## License
 

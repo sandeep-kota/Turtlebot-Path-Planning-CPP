@@ -23,68 +23,67 @@
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * @file    enigmaWalker.cpp
+ * @file    Robot.cpp
  * @author  Sandeep Kota and Satyarth Praveen
  * @version 1.0
- * @brief   This file implements the enigmaWalker.
+ * @brief Publisher node
+ * @section DESCRIPTION
+ * C++ Program regarding the properties and functions of robot.
  */
 
-#ifndef ENIGMAWALKER_H
-#define ENIGMAWALKER_H
 
-#include <iostream>
-#include <ros/ros.h>
-#include <geometry_msgs/Twist.h>
-#include <sensor_msgs/LaserScan.h>
-#include <cmath>
+#include <Robot.h>
 
-/**
- * @brief      This class describes a enigmaWalker.
- */
-class enigmaWalker {
-private:
-  static const int LEFT = 0;
-  static const int RIGHT = 1;
-  static const int STRAIGHT = 2;
-  static constexpr float CLOSEST_DISTANCE = 0.6; // distance in meters.
 
-  ros::NodeHandle node_handle;
-  ros::Subscriber laser_subscriber;
-  ros::Publisher nav_publisher;
+Robot::Robot() {
+	// tell the action client that we want to spin a thread by default
+	ac = MoveBaseClient("move_base", true);
 
-public:
-  geometry_msgs::Twist out_msg;
+	// wait for the action server to come up
+	while(!ac.waitForServer(ros::Duration(5.0))){
+		ROS_INFO("Waiting for the move_base action server to come up");
+	}
 
-  /**
-   * @brief      Constructs a new instance.
-   * 
-   * @param none
-   * @return none
-   */
-  enigmaWalker();
-  /**
-   * @brief      Destroys the object.
-   * 
-   * @param none
-   * @return none
-   */
-  ~enigmaWalker();
+	// we'll send a goal to the robot to move 1 meter forward
+	goal.target_pose.header.frame_id = "base_link";
+	goal.target_pose.header.stamp = ros::Time::now();
 
-  /**
-   * @brief      rotates the robot in-place.
-   *
-   * @param      direction  The direction in which the robot is to be rotated.
-   * @return     none
-   */
-  void moveBot(int direction);
 
-  /**
-   * @brief      processes the scene to decide where the to keep moving forward or take a turn.
-   *
-   * @param      msg   The subscribed message
-   * @return     none
-   */
-  void scanCallback(const sensor_msgs::LaserScanConstPtr &msg);
-};
+	/// Saving the current pose
+	ros::NodeHandler nh;
+	robot_pose_subscriber = nh.subscribe<nav_msgs::Odometry>("/odom", 5, &Robot::saveRobotCurrentPoseCallback, this);
+}
 
-#endif
+
+Robot::~Robot() {}
+
+
+void Robot::saveRobotCurrentPoseCallback(nav_msgs::OdometryConstPtr &odom_msg) {
+	current_pose = odom_msg->pose.pose;
+}
+
+
+void Robot::setPose(geometry_msgs::Pose &goal_pose) {
+	goal.target_pose.pose = goal_pose;
+}
+
+
+geometry_msgs::Pose Robot::getCurrentPose() {
+	return current_pose;
+}
+
+
+bool Robot::moveRobotToGoal() {
+	ROS_INFO("Robot moving to goal");
+	ac.sendGoal(goal);
+
+	ac.waitForResult();
+
+	if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
+		ROS_INFO("Hooray, the base is moving towards goal.");
+		return true;
+	} else {
+		ROS_INFO("The base failed to move towards goal.");
+		return false;
+	}
+}
