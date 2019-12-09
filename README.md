@@ -60,7 +60,7 @@ The following are the major tasks that were done for performming this simulation
 	After the gazebo world has been modeled, it is required to generate a map of the gazebo environment for running localization and the material handling nodes. Below is the screenshot of the mapping being performed by the robot. The robot exploration algorithm is given by the
 	enigma walker class, where it avoids the obstacles in the environment and runs gmapping package on the gazebo world to generate the occupancy grid of the gazebo world.
 		<p align ="center">
-			<img src = ".data/readme_images/Map_server" />
+			<img src = ".data/readme_images/Map_server.png" />
 		</p>
 
 3) <b> Take inputs from the user and perform navigation: </b>
