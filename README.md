@@ -31,6 +31,9 @@ The link for the product backlog, time log, error log and release log can be fou
 
 The link for the sprint review document can be found here - [link](https://docs.google.com/document/d/1372jK7DAAn1wwATMmXONC1Ds_ZeT41WqeLHxTDLHxzQ/edit?usp=sharing)
 
+The link for the presentation for the final project presentation is - [link](https://docs.google.com/presentation/d/1AcX80SA0h2jXYvXMIJos0L63M6Ya1XcCkGXFJuR2B6w/edit#slide=id.p) 
+
+
 ## Project Overview
 
 This project is a simulation of a material handling robot in a gazebo environment of a warehouse. A simulated warehouse environment is designed using the gazebo environment builder, where six bookshelves simulate the different material handling stations of a warehouse and with small red boxes as the objects to be manipulated accross the different stations. 
@@ -96,7 +99,7 @@ source devel/setup.bash
 ```
 roslaunch terpbotics_enigma walker.launch
  ```
-                 
+
 
 ## License
 
