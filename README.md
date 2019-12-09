@@ -31,7 +31,9 @@ The link for the product backlog, time log, error log and release log can be fou
 
 The link for the sprint review document can be found here - [link](https://docs.google.com/document/d/1372jK7DAAn1wwATMmXONC1Ds_ZeT41WqeLHxTDLHxzQ/edit?usp=sharing)
 
-The link for the presentation for the final project presentation is - [link](https://docs.google.com/presentation/d/1AcX80SA0h2jXYvXMIJos0L63M6Ya1XcCkGXFJuR2B6w/edit#slide=id.p) 
+The link for the presentation for the final project presentation is - [link](https://docs.google.com/presentation/d/1AcX80SA0h2jXYvXMIJos0L63M6Ya1XcCkGXFJuR2B6w/edit?usp=sharing) 
+
+Thi link for the video of the simulation is - [Link](https://www.youtube.com/watch?v=weTAFZW-aLw&feature=youtu.be)
 
 
 ## Project Overview
@@ -65,6 +67,9 @@ The following are the major tasks that were done for performming this simulation
 
 3) <b> Take inputs from the user and perform navigation: </b>
 	The navigation code is then run taking the user inputs on the pick location and the place location of the object. It finds the optimum path between pick location and place location and moves the robot along the path.
+		<p align ="center">
+			<img src = ".data/readme_images/localize.png" />
+		</p>
 
 
 ## Dependencies 
